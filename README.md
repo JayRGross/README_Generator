@@ -1,7 +1,6 @@
 
 # Title
 README GENERATOR
-https://jayrgross.github.io/README_Generator/
 ## Description
 Create README'S for new projects and repositories.
 ## Installation
