@@ -1,9 +1,29 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const generateMarkdown = require('./util/generateMarkdown');
 
-const promptUser = () => {
-    return inquirer.prompt([
+const readMeData = (input) => `
+# Title
+${input.Title}
+## Description
+${input.Description}
+## Installation
+${input.Installation}    
+## Usage
+${input.Usage}
+## Contributing
+${input.Contributing}
+## Test
+${input.Test}
+## Email
+${input.Email}
+## Github
+${input.Github}
+## License
+${input.License}
+`
+
+ inquirer
+ .prompt([
         {
         type: 'input',
         name: 'Title',
@@ -58,9 +78,10 @@ const promptUser = () => {
         ]
     }    
     ])
-};
-const generateReadMe = () => {
-    promptUser()
-    .then((answers) => fs.writeFile('READ.md', generateMarkdown(answers), () => console.error('your file has been generated')))
-    .catch((err) => {console.log(err)})
-};
+.then((input) => {
+    const readMe = readMeData(input)
+    const filename = 'README.md';
+
+    fs.writeFile(filename, readMe, (err) =>
+    err ? console.log(err) : console.log('sucess'));
+});
